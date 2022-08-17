@@ -34,4 +34,4 @@ jobs:
         continue-on-error: true
 
         run: |
-          dotnet test Tests/Common.Tests/Common.Tests.csproj  --no-build --verbosity minimal --configuration Release
+          dotnet test LostMerchantWebScrapperTests/LostMerchantWebScrapperTests.csproj  --no-build --verbosity minimal

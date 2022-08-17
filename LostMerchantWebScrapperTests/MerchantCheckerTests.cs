@@ -111,7 +111,7 @@ namespace LostMerchantWebScrapperTests
                 Card = "Wei",
                 Votes = 1,
             };
-            _option.Rules = new[]
+            _option.Rules = new List<FilterRule>
            {
                 new FilterRule
                 {
@@ -167,7 +167,7 @@ namespace LostMerchantWebScrapperTests
                 Card = "Wei",
                 Votes = 1,
             };
-            _option.Rules = new[]
+            _option.Rules = new List<FilterRule>
             {
                 new FilterRule
                 {

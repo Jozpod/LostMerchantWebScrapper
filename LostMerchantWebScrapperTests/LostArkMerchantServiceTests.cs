@@ -129,6 +129,7 @@ namespace LostMerchantWebScrapperTests
             var cardCell = CreateElementWithText(expected.Card);
             var rapportCell = CreateElementWithText(expected.Rapport);
             var votesCell = CreateElementWithText(expected.Votes.ToString());
+            var stubCell = CreateElementWithText(string.Empty);
 
             var rows = new List<IWebElement>()
             {
@@ -143,6 +144,7 @@ namespace LostMerchantWebScrapperTests
                 cardCell,
                 rapportCell,
                 votesCell,
+                stubCell
             }.AsReadOnly();
 
             _webDriverMock
@@ -177,6 +179,10 @@ namespace LostMerchantWebScrapperTests
 
             webElement
                 .Setup(pr => pr.Text)
+                .Returns(text);
+
+            webElement
+                .Setup(pr => pr.GetAttribute(It.IsAny<string>()))
                 .Returns(text);
 
             return webElement.Object;

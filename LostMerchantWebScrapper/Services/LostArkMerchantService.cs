@@ -67,35 +67,56 @@ namespace LostMerchantWebScrapper.Services
 
         private async Task ComputeEntriesAsync(IWebElement tableElement, List<MerchantEntry> list)
         {
-            var trNode = By.TagName("tr");
-            var rows = tableElement.FindElements(trNode);
-
-            foreach (var row in rows)
+            var reTry = true;
+            while (reTry)
             {
-                var tdNode = By.TagName("td");
-                var cells = row.FindElements(tdNode);
-
-                if(cells.Count != 6)
+                try
                 {
-                    _logger.LogDebug("Invalid number of rows");
-                    break;
+                    reTry = false;
+                    var trNode = By.TagName("tr");
+                    var rows = tableElement.FindElements(trNode);
+
+                    foreach (var row in rows)
+                    {
+                        var tdNode = By.TagName("td");
+                        var cells = row.FindElements(tdNode);
+
+                        if(cells.Count == 1)
+                        {
+                            continue;
+                        }
+
+                        if (cells.Count != 7)
+                        {
+                            _logger.LogDebug("Invalid number of rows");
+                            break;
+                        }
+
+                        var card = cells[3].GetAttribute("textContent");
+                        var rapport = cells[4].GetAttribute("textContent");
+                        var votes = cells[5].Text;
+                        votes = string.IsNullOrEmpty(votes) ? "0" : votes;
+
+                        var entry = new MerchantEntry
+                        {
+                            Name = cells[0].Text,
+                            Region = cells[1].Text,
+                            Zone = cells[2].Text,
+                            Card = card,
+                            Rapport = rapport,
+                            RapportRarity = await _lostArkDescriptor.GetRarityAsync(rapport),
+                            Votes = int.Parse(votes),
+                        };
+
+                        list.Add(entry);
+                    }
                 }
-
-                var rapport = cells[4].Text;
-
-                var entry = new MerchantEntry
+                catch (StaleElementReferenceException)
                 {
-                    Name = cells[0].Text,
-                    Region = cells[1].Text,
-                    Zone = cells[2].Text,
-                    Card = cells[3].Text,
-                    Rapport = rapport,
-                    RapportRarity = await _lostArkDescriptor.GetRarityAsync(rapport),
-                    Votes = int.Parse(cells[5].Text),
-                };
-
-                list.Add(entry);
+                    reTry = true;
+                }
             }
+            
         }
     }
 }
