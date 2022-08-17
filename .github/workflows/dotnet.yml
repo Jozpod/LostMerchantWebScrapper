@@ -1,0 +1,37 @@
+name: Build, Tests, Code Coverage
+
+on:
+  push:
+    paths-ignore:
+      - LICENSE
+      - ".github/**"
+      - "*.md"
+      - ".gitignore"
+
+    branches: [master]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cache Nuget
+        uses: actions/cache@v1
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --configuration Release --no-restore /p:DebugType=Portable /p:DebugSymbols=true
+      - name: Run Tests
+        continue-on-error: true
+
+        run: |
+          dotnet test Tests/Common.Tests/Common.Tests.csproj  --no-build --verbosity minimal --configuration Release
