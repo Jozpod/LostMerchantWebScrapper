@@ -2,6 +2,7 @@
 {
     public class DefaultTaskManager : ITaskManager
     {
-        public Task Delay(TimeSpan delay) => Task.Delay(delay);
+        public Task Delay(TimeSpan delay, CancellationToken cancellationToken = default) 
+            => Task.Delay(delay, cancellationToken);
     }
 }

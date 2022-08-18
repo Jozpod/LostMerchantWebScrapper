@@ -5,7 +5,7 @@ VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LostMerchantWebScrapper", "LostMerchantWebScrapper\LostMerchantWebScrapper.csproj", "{A3A5DA23-B517-4F0A-AC4F-14063EB70910}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LostMerchantWebScrapperTests", "LostMerchantWebScrapperTests\LostMerchantWebScrapperTests.csproj", "{79DD981A-C0A3-4A2D-A636-C1F389784DA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LostMerchantWebScrapperTests", "LostMerchantWebScrapperTests\LostMerchantWebScrapperTests.csproj", "{79DD981A-C0A3-4A2D-A636-C1F389784DA8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Other items", "Other items", "{AD9EE8CE-B8E6-43C2-A95A-7EEFBBD40E04}"
 	ProjectSection(SolutionItems) = preProject
@@ -15,20 +15,42 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Other items", "Other items"
 		.github\workflows\release.yml = .github\workflows\release.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{45559AE0-2550-4407-AF23-4A48E3286207}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{A3A5DA23-B517-4F0A-AC4F-14063EB70910}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A3A5DA23-B517-4F0A-AC4F-14063EB70910}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3A5DA23-B517-4F0A-AC4F-14063EB70910}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A3A5DA23-B517-4F0A-AC4F-14063EB70910}.Debug|x64.Build.0 = Debug|Any CPU
+		{A3A5DA23-B517-4F0A-AC4F-14063EB70910}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{A3A5DA23-B517-4F0A-AC4F-14063EB70910}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3A5DA23-B517-4F0A-AC4F-14063EB70910}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3A5DA23-B517-4F0A-AC4F-14063EB70910}.Release|x64.ActiveCfg = Release|Any CPU
+		{A3A5DA23-B517-4F0A-AC4F-14063EB70910}.Release|x86.ActiveCfg = Release|Any CPU
 		{79DD981A-C0A3-4A2D-A636-C1F389784DA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{79DD981A-C0A3-4A2D-A636-C1F389784DA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79DD981A-C0A3-4A2D-A636-C1F389784DA8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{79DD981A-C0A3-4A2D-A636-C1F389784DA8}.Debug|x64.Build.0 = Debug|Any CPU
+		{79DD981A-C0A3-4A2D-A636-C1F389784DA8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{79DD981A-C0A3-4A2D-A636-C1F389784DA8}.Debug|x86.Build.0 = Debug|Any CPU
 		{79DD981A-C0A3-4A2D-A636-C1F389784DA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79DD981A-C0A3-4A2D-A636-C1F389784DA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79DD981A-C0A3-4A2D-A636-C1F389784DA8}.Release|x64.ActiveCfg = Release|Any CPU
+		{79DD981A-C0A3-4A2D-A636-C1F389784DA8}.Release|x64.Build.0 = Release|Any CPU
+		{79DD981A-C0A3-4A2D-A636-C1F389784DA8}.Release|x86.ActiveCfg = Release|Any CPU
+		{79DD981A-C0A3-4A2D-A636-C1F389784DA8}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,5 +1,6 @@
 ﻿
 using LostMerchantWebScrapper;
+using LostMerchantWebScrapper.Builder;
 using LostMerchantWebScrapper.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,22 +26,8 @@ var serviceProvider = new ServiceCollection()
     .AddSingleton<ILostArkDescriptor, LostArkDescriptor>()
     .AddSingleton<IFileProvider, DefaultFileProvider>()
     .AddSingleton<MerchantChecker>()
-    .AddSingleton<IWebDriver>((serviceProvider) =>
-    {
-        var chromeOptions = new ChromeOptions();
-        chromeOptions.AddArguments("headless");
-        chromeOptions.AddArgument("--disable-gpu");
-        chromeOptions.AddArgument("--disable-crash-reporter");
-        chromeOptions.AddArgument("--disable-extensions");
-        chromeOptions.AddArgument("--disable-in-process-stack-traces");
-        chromeOptions.AddArgument("--disable-logging");
-        chromeOptions.AddArgument("--disable-dev-shm-usage");
-        chromeOptions.AddArgument("--log-level=3");
-
-        var driver = new ChromeDriver(chromeOptions);
-        return driver;
-    })
-    .AddSingleton<IJavaScriptExecutor>((serviceProvider) =>
+    .AddChromeWebDriver()
+    .AddSingleton((serviceProvider) =>
     {
         var driver = serviceProvider.GetRequiredService<IWebDriver>();
         return (IJavaScriptExecutor)driver;
@@ -55,8 +42,11 @@ var serviceProvider = new ServiceCollection()
     .AddMemoryCache()
     .BuildServiceProvider();
 
-
-
-
 var merchantChecker = serviceProvider.GetRequiredService<MerchantChecker>();
+Console.CancelKeyPress += OnCancel;
 await merchantChecker.RunAsync();
+
+void OnCancel(object? sender, ConsoleCancelEventArgs e)
+{
+    merchantChecker.Stop();
+}

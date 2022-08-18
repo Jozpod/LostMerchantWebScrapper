@@ -2,12 +2,13 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <PublishSingleFile>true</PublishSingleFile>
+	<PublishSingleFile Condition="'$(Configuration)' == 'Release'">true</PublishSingleFile>
     <SelfContained>true</SelfContained>
     <PublishReadyToRun>true</PublishReadyToRun>
 	<PublishChromeDriver>true</PublishChromeDriver>
 	<RuntimeIdentifier>win10-x64</RuntimeIdentifier>
   </PropertyGroup>
+
 
   <ItemGroup>
     <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />

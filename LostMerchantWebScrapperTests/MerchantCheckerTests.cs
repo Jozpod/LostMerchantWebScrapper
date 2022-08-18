@@ -1,5 +1,3 @@
-using FluentAssertions;
-using HtmlAgilityPack;
 using LostMerchantWebScrapper;
 using LostMerchantWebScrapper.Models;
 using LostMerchantWebScrapper.Services;
@@ -9,9 +7,6 @@ using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace LostMerchantWebScrapperTests
 {
@@ -22,13 +17,12 @@ namespace LostMerchantWebScrapperTests
         private readonly Mock<ILostArkStatusService> _lostArkStatusServiceMock = new Mock<ILostArkStatusService>(MockBehavior.Strict);
         private readonly Mock<ITaskManager> _taskManagerMock = new Mock<ITaskManager>(MockBehavior.Strict);
         private readonly Mock<ISystemClock> _systemClockMock = new Mock<ISystemClock>(MockBehavior.Strict);
-        private MerchantCheckerOption _option;
+        private MerchantCheckerOption _option = new MerchantCheckerOption();
 
         internal MerchantChecker CreateService(ILogger<MerchantChecker>? logger = null)
         {
             logger ??= NullLogger<MerchantChecker>.Instance;
             var optionMock = new Mock<IOptionsMonitor<MerchantCheckerOption>>(MockBehavior.Strict);
-            _option = new MerchantCheckerOption();
 
             optionMock
                 .Setup(pr => pr.CurrentValue)
@@ -58,7 +52,7 @@ namespace LostMerchantWebScrapperTests
                 .ReturnsAsync(false);
 
             _taskManagerMock
-                .Setup(pr => pr.Delay(_option.ProbeDelay))
+                .Setup(pr => pr.Delay(_option.ProbeDelay, It.IsAny<CancellationToken>()))
                 .Returns(Task.CompletedTask);
 
             _lostArkStatusServiceMock
@@ -70,7 +64,7 @@ namespace LostMerchantWebScrapperTests
                 .Returns(new DateTime(2022, 8, 17, 20, 31, 20));
 
             _lostArkMerchantServiceMock
-                .Setup(pr => pr.GetEntriesAsync())
+                .Setup(pr => pr.GetEntriesAsync(null, true, It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new List<MerchantEntry>());
 
             await service.InnerRunAsync();
@@ -90,7 +84,7 @@ namespace LostMerchantWebScrapperTests
                 .Returns(new DateTime(2022, 8, 17, 20, 21, 20));
 
             _taskManagerMock
-                .Setup(pr => pr.Delay(It.IsAny<TimeSpan>()))
+                .Setup(pr => pr.Delay(It.IsAny<TimeSpan>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.CompletedTask);
 
             await service.InnerRunAsync();
@@ -131,11 +125,11 @@ namespace LostMerchantWebScrapperTests
                 .Returns(new DateTime(2022, 8, 17, 20, 31, 20));
 
             _taskManagerMock
-                .Setup(pr => pr.Delay(It.IsAny<TimeSpan>()))
+                .Setup(pr => pr.Delay(It.IsAny<TimeSpan>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.CompletedTask);
 
             _lostArkMerchantServiceMock
-                .Setup(pr => pr.GetEntriesAsync())
+                .Setup(pr => pr.GetEntriesAsync(null, true, It.IsAny<CancellationToken>()))
                 .ReturnsAsync(merchantEntries);
 
             loggerMock
@@ -187,11 +181,11 @@ namespace LostMerchantWebScrapperTests
                 .Returns(new DateTime(2022, 8, 17, 20, 31, 20));
 
             _taskManagerMock
-                .Setup(pr => pr.Delay(It.IsAny<TimeSpan>()))
+                .Setup(pr => pr.Delay(It.IsAny<TimeSpan>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.CompletedTask);
 
             _lostArkMerchantServiceMock
-                .Setup(pr => pr.GetEntriesAsync())
+                .Setup(pr => pr.GetEntriesAsync(null, true, It.IsAny<CancellationToken>()))
                 .ReturnsAsync(merchantEntries);
 
             loggerMock
