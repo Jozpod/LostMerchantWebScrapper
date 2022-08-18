@@ -12,7 +12,7 @@ using OpenQA.Selenium;
 
 namespace LostMerchantWebScrapperTests
 {
-    [TestClass]
+    //[TestClass]
     public class LostArkMerchantServiceIntegrationTests
     {
         private ServiceProvider? _serviceProvider;
